@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git clone') {
             steps {
-              git 'https://github.com/SanjayKumar-KS/java-azure-project.git''
+              git 'https://github.com/SanjayKumar-KS/java-azure-project.git'
             }
         }
         stage('build') {
