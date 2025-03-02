@@ -27,14 +27,12 @@ pipeline {
         sh "sudo docker push kuduvasanjaykumar/javasantab51:latest"
         }
         }  
-         
-        stage('Deploy to docker Env') {
-steps {
-        sh "sudo docker rm -f app3" 
-    sh "sudo docker run -itd --name app3 -p 9000:8080 kuduvasanjaykumar/javasantab51:latest" 
-
+            stage('Deploy webAPP in kube Env') {
+    steps {
+  
+     sh "kubectl apply -f /var/lib/jenkins/workspace/Final/k8-dep-svc.yml"   
+  
 }
-}
-    
+}   
     }
 }
