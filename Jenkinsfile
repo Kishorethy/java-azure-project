@@ -2,37 +2,37 @@ pipeline {
     agent any
 
     stages {
-        stage('git clone') {
+        stage('Git Clone') {
             steps {
-              git 'https://github.com/Kishorethy/java-azure-project.git'
+                git 'https://github.com/Kishorethy/java-azure-project.git'
             }
         }
-        stage('build') {
-            steps {
-              sh "mvn clean package"
-            }
-        }
-        stage('Build Docker OWN image') {
-            steps {
-                sh "sudo docker build -t kishorethy/java-azure-project:latest ."
 
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean package'
             }
         }
-        stage('docker push ') {
-     steps {
-     withCredentials([string(credentialsId: 'Docker_Hub', variable: 'Docker_Hub_Pass')]) {
-    // some block
-        sh "sudo docker login -u kishorethy -p $Docker_Hub_Pass"
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t kishorethy/java-azure-project:latest .'
+            }
         }
-        sh "sudo docker push kishorethy/java-azure-project:latest"
+
+        stage('Docker Push') {
+            steps {
+                withCredentials([string(credentialsId: '0c0d4578-81aa-47ed-a652-4f0a16d8235b', variable: 'Docker_Hub_Pass')]) {
+                    sh 'docker login -u kishorethy -p $Docker_Hub_Pass'
+                    sh 'docker push kishorethy/java-azure-project:latest'
+                }
+            }
         }
-        }  
-            stage('Deploy webAPP in kube Env') {
-    steps {
-  
-     sh "kubectl apply -f /var/lib/jenkins/workspace/Final/k8-dep-svc.yml"   
-  
-}
-}   
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f /var/lib/jenkins/workspace/Final/k8-dep-svc.yml'
+            }
+        }
     }
 }
