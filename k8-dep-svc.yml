@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-k8s
-          image: kuduvasanjaykumar/javasantab51:latest
+          image: kishorethy/java-azure-project:tagname
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
