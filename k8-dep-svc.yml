@@ -17,7 +17,7 @@ spec:
           image: kishorethy/java-azure-project:tagname
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 9500
           resources:
             requests:
               memory: "1Gi" 
@@ -37,6 +37,6 @@ spec:
     app: spring-boot-k8s
   ports:
     - protocol: "TCP"
-      port: 8080 # The port that the service is running on in the cluster
-      targetPort: 8080 # The port exposed by the service
+      port: 9500 # The port that the service is running on in the cluster
+      targetPort: 9500 # The port exposed by the service
   type: LoadBalancer # type of the service.
