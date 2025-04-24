@@ -31,7 +31,7 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f /var/lib/jenkins/workspace/Final/k8-dep-svc.yml'
+                sh 'kubectl apply -f /var/lib/jenkins/workspace/java-azure-project/k8-dep-svc.yml'
             }
         }
     }
